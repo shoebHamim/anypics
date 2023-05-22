@@ -5,15 +5,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AnyPics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <header>
-    <h2><a href="./index.html" id="logo">
+    <h2><a  class="title" href="./index.html" id="logo">
       AnyPics
     </a></h2>
-    <form action="">
-      <input type="text" name="search" id="query">
+    <form class="search-area" autocomplete="off">
+      <input type="text" placeholder="Search for Any Picture" name="search" id="query">
       <button id="search">Search</button>
     </form>
   </header>
