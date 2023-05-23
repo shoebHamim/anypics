@@ -53,7 +53,21 @@ header{
   grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
  
 }
-
+.single-image{
+  position: relative;
+}
+.download-btn{
+  height: 2.4rem;
+  background-color: white;
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  padding: .6rem;
+  border: none;
+  border-radius: .6rem;
+  cursor: pointer;
+  display: none;
+}
 
 img{
   width: 100%;
@@ -62,9 +76,6 @@ img{
 }
 .more{
   margin: 1rem 0;
-  /* height: inherit;
-  width: inherit;
-  padding: .5rem 1rem; */
 }
 .more-container{
   display: flex;
@@ -75,5 +86,8 @@ img{
   #query{
     width: 10rem;
     padding-left: .5rem;
+  }
+  .download-btn{
+    display: block;
   }
 }

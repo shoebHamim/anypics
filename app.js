@@ -11,8 +11,10 @@ const curatedPhotos = async (showPhoto) => {
   next_page=data.next_page;
   console.log(next_page);
   for (photo of data.photos) {
-    showPhoto(photo.src.large)
+    showPhoto(photo.src)
   }
+  downloadFeature()
+ 
 }
 const searchPhotos = async (query) => {
   const res = await fetch(`https://api.pexels.com/v1/search?query=${query}`,
@@ -28,19 +30,27 @@ const searchPhotos = async (query) => {
   for (photo of data.photos) {
     showPhoto(photo.src.large)
   }
+  downloadFeature()
+
 }
 
 const showPhoto = (src) => {
-  const imageDiv = document.createElement('div');
-  imageDiv.className = 'single-image';
-  const image = document.createElement('img')
-  image.setAttribute('src', src)
-  imageDiv.append(image)
-  galleryDiv.append(imageDiv)
+  
+  const imageDiv = `<div class="single-image">
+    <img src=${src.large} alt="">
+    <a href=${src.original}>
+    <button class="download-btn">
+    <img src="./download.png" alt="">
+    </button>
+    </a>
+</div>`
+
+  
+  galleryDiv.innerHTML+=imageDiv;
+  
 
 }
 
-curatedPhotos(showPhoto)
 searchBtn.addEventListener('click', (e) => {
   e.preventDefault()
   const query = document.getElementById('query').value;
@@ -56,7 +66,30 @@ moreBtn.addEventListener('click',async()=>{
   const data= await res.json()
   next_page=data.next_page;
   for(photo of data.photos){
-    showPhoto(photo.src.large)
+    showPhoto(photo.src)
   }
+  downloadFeature()
+
 })
-console.log(next_page);
+// console.log(next_page);
+
+function downloadFeature(){
+  const singleImgs=document.querySelectorAll('.single-image')
+  singleImgs.forEach(singleImg=>{
+    singleImg.addEventListener('mouseover',()=>{
+      const downloadBtn=singleImg.children[1].children[0];
+      downloadBtn.style.display='block'
+    }) 
+    singleImg.addEventListener('mouseout',(e)=>{
+      const downloadBtn=singleImg.children[1].children[0];
+      downloadBtn.style.display='none'
+    })
+  })
+
+
+  
+}
+
+curatedPhotos(showPhoto)
+
+
