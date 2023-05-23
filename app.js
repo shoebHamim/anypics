@@ -41,7 +41,7 @@ const showPhoto = (src) => {
     <img src=${src.large} alt="">
     <a href=${src.original}>
     <button class="download-btn">
-    <img src="./download.png" alt="">
+    <img src="./download(1).png" alt="">
     </button>
     </a>
 </div>`
