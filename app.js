@@ -74,6 +74,9 @@ moreBtn.addEventListener('click',async()=>{
 // console.log(next_page);
 
 function downloadFeature(){
+  if(screen.width<500){
+    return
+  }
   const singleImgs=document.querySelectorAll('.single-image')
   singleImgs.forEach(singleImg=>{
     singleImg.addEventListener('mouseover',()=>{
