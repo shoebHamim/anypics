@@ -1,5 +1,6 @@
 const galleryDiv = document.querySelector('.gallery')
 const searchBtn = document.getElementById('search')
+let loadingMorePics=false
 let next_page='';
 const curatedPhotos = async (showPhoto) => {
   const res = await fetch('https://api.pexels.com/v1/curated', {
@@ -59,18 +60,26 @@ searchBtn.addEventListener('click', (e) => {
   }
 })
 
-const moreBtn=document.querySelector('.more')
-moreBtn.addEventListener('click',async()=>{
+// more Button click handler
+// const moreBtn=document.querySelector('.more')
+// moreBtn.addEventListener('click',async()=>{
+// })
+// show more
+const morePics=async()=>{
+  loadingMorePics=true
   const res= await fetch(next_page,{headers:{Authorization:
-  'ycF28R1JlkLg9Lm3rJ6Q5IxToIeXStjY1Yzu5sxZP8OWtMZKjKWpc43D'}})
-  const data= await res.json()
-  next_page=data.next_page;
-  for(photo of data.photos){
-    showPhoto(photo.src)
-  }
-  downloadFeature()
+    'ycF28R1JlkLg9Lm3rJ6Q5IxToIeXStjY1Yzu5sxZP8OWtMZKjKWpc43D'}})
+    const data= await res.json()
+    next_page=data.next_page;
+    for(photo of data.photos){
+      showPhoto(photo.src)
+    }
+    downloadFeature()
+    loadingMorePics=false
+  
 
-})
+}
+
 // console.log(next_page);
 
 function downloadFeature(){
@@ -92,7 +101,15 @@ function downloadFeature(){
 
   
 }
-
 curatedPhotos(showPhoto)
-
-
+//  endless scrolling 
+window.onscroll = function() {
+  if (!loadingMorePics && window.innerHeight + window.pageYOffset>= document.body.offsetHeight) {
+    morePics()
+    console.log('more photos');
+    setTimeout(() => {
+      
+    }, 2000);
+  }
+  // console.log(window.innerHeight + window.pageYOffset);
+ }
