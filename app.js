@@ -1,7 +1,7 @@
 const galleryDiv = document.querySelector('.gallery')
 const searchBtn = document.getElementById('search')
-let loadingMorePics=false
-let next_page='';
+let loadingMorePics = false
+let next_page = '';
 const curatedPhotos = async (showPhoto) => {
   const res = await fetch('https://api.pexels.com/v1/curated', {
     headers: {
@@ -9,13 +9,13 @@ const curatedPhotos = async (showPhoto) => {
     }
   })
   const data = await res.json()
-  next_page=data.next_page;
+  next_page = data.next_page;
   console.log(next_page);
   for (photo of data.photos) {
     showPhoto(photo.src)
   }
   downloadFeature()
- 
+
 }
 const searchPhotos = async (query) => {
   const res = await fetch(`https://api.pexels.com/v1/search?query=${query}`,
@@ -26,8 +26,8 @@ const searchPhotos = async (query) => {
     }
   )
   const data = await res.json()
-  galleryDiv.innerHTML='';
-  next_page=data.next_page;
+  galleryDiv.innerHTML = '';
+  next_page = data.next_page;
   for (photo of data.photos) {
     showPhoto(photo.src)
   }
@@ -36,7 +36,7 @@ const searchPhotos = async (query) => {
 }
 
 const showPhoto = (src) => {
-  
+
   const imageDiv = `<div class="single-image">
     <img src=${src.large} alt="">
     <a href=${src.original}>
@@ -46,9 +46,9 @@ const showPhoto = (src) => {
     </a>
 </div>`
 
-  
-  galleryDiv.innerHTML+=imageDiv;
-  
+
+  galleryDiv.innerHTML += imageDiv;
+
 
 }
 
@@ -65,51 +65,67 @@ searchBtn.addEventListener('click', (e) => {
 // moreBtn.addEventListener('click',async()=>{
 // })
 // show more
-const morePics=async()=>{
-  loadingMorePics=true
-  const res= await fetch(next_page,{headers:{Authorization:
-    'ycF28R1JlkLg9Lm3rJ6Q5IxToIeXStjY1Yzu5sxZP8OWtMZKjKWpc43D'}})
-    const data= await res.json()
-    next_page=data.next_page;
-    for(photo of data.photos){
-      showPhoto(photo.src)
+const morePics = async () => {
+  loadingMorePics = true
+  const res = await fetch(next_page, {
+    headers: {
+      Authorization:
+        'ycF28R1JlkLg9Lm3rJ6Q5IxToIeXStjY1Yzu5sxZP8OWtMZKjKWpc43D'
     }
-    downloadFeature()
-    loadingMorePics=false
-  
+  })
+  const data = await res.json()
+  next_page = data.next_page;
+  for (photo of data.photos) {
+    showPhoto(photo.src)
+  }
+  downloadFeature()
+  loadingMorePics = false
+
 
 }
 
 // console.log(next_page);
 
-function downloadFeature(){
-  if(screen.width<500){
+function downloadFeature() {
+  if (screen.width < 500) {
     return
   }
-  const singleImgs=document.querySelectorAll('.single-image')
-  singleImgs.forEach(singleImg=>{
-    singleImg.addEventListener('mouseover',()=>{
-      const downloadBtn=singleImg.children[1].children[0];
-      downloadBtn.style.display='block'
-    }) 
-    singleImg.addEventListener('mouseout',(e)=>{
-      const downloadBtn=singleImg.children[1].children[0];
-      downloadBtn.style.display='none'
+  const singleImgs = document.querySelectorAll('.single-image')
+  singleImgs.forEach(singleImg => {
+    singleImg.addEventListener('mouseover', () => {
+      const downloadBtn = singleImg.children[1].children[0];
+      downloadBtn.style.display = 'block'
+    })
+    singleImg.addEventListener('mouseout', (e) => {
+      const downloadBtn = singleImg.children[1].children[0];
+      downloadBtn.style.display = 'none'
     })
   })
 
 
-  
+
 }
 curatedPhotos(showPhoto)
 //  endless scrolling 
-window.onscroll = function() {
-  if (!loadingMorePics && window.innerHeight + window.pageYOffset>= document.body.offsetHeight) {
+window.onscroll = function () {
+  if (!loadingMorePics && window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
     morePics()
     console.log('more photos');
     setTimeout(() => {
-      
+
     }, 2000);
   }
   // console.log(window.innerHeight + window.pageYOffset);
- }
+}
+//  switching mode
+const toggleBtn = document.querySelector('.toggle-mode')
+
+toggleBtn.addEventListener('click', () => {
+  if (document.body.classList.value == 'dark-mode') {
+    toggleBtn.children[0].setAttribute('src', './moon.png')
+  } else {
+    toggleBtn.children[0].setAttribute('src', './brightness.png')
+  }
+  document.querySelector('#query').classList.toggle('dark-mode-input')
+  document.body.classList.toggle('dark-mode');
+})

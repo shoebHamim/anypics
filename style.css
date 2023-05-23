@@ -3,15 +3,25 @@
   padding: 0;
   box-sizing: border-box;
 }
-body{
+
+
+.dark-mode{
   background: #262321;
 }
-#query{
+.dark-mode-input{
   background: #181615;
   color: white;
 }
-.dark{
-  
+.toggle-mode{
+  position: absolute;
+  right: 3rem;
+  top: 1.5rem;
+  width: 2rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: red;
+
 }
 
 header{
@@ -61,7 +71,7 @@ header{
 
 .gallery{
   margin: 0 1rem;
-  /* margin-bottom: 3rem; */
+  margin-bottom:2rem;
   gap: 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
