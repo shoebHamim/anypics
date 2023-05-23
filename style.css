@@ -115,4 +115,7 @@ img{
   .download-btn{
     display: block;
   }
+  .body{
+    -webkit-tap-highlight-color: transparent;
+  }
 }
