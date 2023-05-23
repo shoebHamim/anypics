@@ -28,7 +28,7 @@ const searchPhotos = async (query) => {
   galleryDiv.innerHTML='';
   next_page=data.next_page;
   for (photo of data.photos) {
-    showPhoto(photo.src.large)
+    showPhoto(photo.src)
   }
   downloadFeature()
 
