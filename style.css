@@ -3,7 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+body{
+  -webkit-tap-highlight-color: transparent;
+}
 
 .dark-mode{
   background: #262321;
@@ -15,20 +17,19 @@
 .toggle-mode{
   position: absolute;
   right: 3rem;
-  top: 1.5rem;
-  width: 2rem;
+  top: 1rem;
+  width: 1.3rem;
   border: none;
   background: none;
   cursor: pointer;
   color: red;
-
+  user-select: none;
 }
 
 header{
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
 .title{
   font-size:xx-large;
@@ -46,15 +47,15 @@ header{
   width: 15rem ;
   padding-left: 2rem;
   border-radius: 1rem;
-  height: 2rem;
+  height: 1.6rem;
   outline: none;
 }
 
 
 #search,.more{
   border-radius: 1rem;
-  height: 2rem;
-  width: 5rem;
+  height: 1.6rem;
+  width: 4rem;
   cursor: pointer;
   background: #0f766e;
   border: none;
@@ -114,9 +115,5 @@ img{
   }
   .download-btn{
     display: block;
-  }
-  .body{
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
   }
 }
