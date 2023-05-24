@@ -107,7 +107,7 @@ function downloadFeature() {
 curatedPhotos(showPhoto)
 //  endless scrolling 
 window.onscroll = function () {
-  if (!loadingMorePics && window.innerHeight + window.pageYOffset-40 >= document.body.offsetHeight) {
+  if (!loadingMorePics && (window.innerHeight + window.pageYOffset+50) >= document.body.offsetHeight) {
     morePics()
     console.log('more photos');
     setTimeout(() => {
