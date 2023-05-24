@@ -10,7 +10,6 @@ const curatedPhotos = async (showPhoto) => {
   })
   const data = await res.json()
   next_page = data.next_page;
-  console.log(next_page);
   for (photo of data.photos) {
     showPhoto(photo.src)
   }
@@ -41,7 +40,7 @@ const showPhoto = (src) => {
     <img src=${src.large} alt="">
     <a href=${src.original}>
     <button class="download-btn">
-    <img src="./download(1).png" alt="">
+    <img src="./images/download(1).png" alt="">
     </button>
     </a>
 </div>`
@@ -84,7 +83,7 @@ const morePics = async () => {
 
 }
 
-// console.log(next_page);
+
 
 function downloadFeature() {
   if (screen.width < 500) {
@@ -108,7 +107,7 @@ function downloadFeature() {
 curatedPhotos(showPhoto)
 //  endless scrolling 
 window.onscroll = function () {
-  if (!loadingMorePics && window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+  if (!loadingMorePics && window.innerHeight + window.pageYOffset-40 >= document.body.offsetHeight) {
     morePics()
     console.log('more photos');
     setTimeout(() => {
@@ -122,9 +121,9 @@ const toggleBtn = document.querySelector('.toggle-mode')
 
 toggleBtn.addEventListener('click', () => {
   if (document.body.classList.value == 'dark-mode') {
-    toggleBtn.children[0].setAttribute('src', './moon.png')
+    toggleBtn.children[0].setAttribute('src', './images/moon.png')
   } else {
-    toggleBtn.children[0].setAttribute('src', './brightness.png')
+    toggleBtn.children[0].setAttribute('src', './images/brightness.png')
   }
   document.querySelector('#query').classList.toggle('dark-mode-input')
   document.body.classList.toggle('dark-mode');
