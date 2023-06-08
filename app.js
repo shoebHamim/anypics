@@ -30,8 +30,7 @@ const searchPhotos = async (query) => {
   for (photo of data.photos) {
     showPhoto(photo.src)
   }
-  downloadFeature()
-
+  downloadFeature() 
 }
 
 const showPhoto = (src) => {
@@ -59,11 +58,6 @@ searchBtn.addEventListener('click', (e) => {
   }
 })
 
-// more Button click handler
-// const moreBtn=document.querySelector('.more')
-// moreBtn.addEventListener('click',async()=>{
-// })
-// show more
 const morePics = async () => {
   loadingMorePics = true
   const res = await fetch(next_page, {
@@ -79,8 +73,6 @@ const morePics = async () => {
   }
   downloadFeature()
   loadingMorePics = false
-
-
 }
 
 
@@ -109,12 +101,10 @@ curatedPhotos(showPhoto)
 window.onscroll = function () {
   if (!loadingMorePics && (window.innerHeight + window.pageYOffset+50) >= document.body.offsetHeight) {
     morePics()
-    console.log('more photos');
     setTimeout(() => {
-
     }, 2000);
   }
-  // console.log(window.innerHeight + window.pageYOffset);
+
 }
 //  switching mode
 const toggleBtn = document.querySelector('.toggle-mode')
@@ -122,9 +112,23 @@ const toggleBtn = document.querySelector('.toggle-mode')
 toggleBtn.addEventListener('click', () => {
   if (document.body.classList.value == 'dark-mode') {
     toggleBtn.children[0].setAttribute('src', './images/moon.png')
+    // previous state was dark.. as mode is toggled, storing mode value as light 
+    localStorage.setItem('mode','light')
+    
   } else {
     toggleBtn.children[0].setAttribute('src', './images/brightness.png')
+    // previous state was light.. as mode is toggled, storing mode value as dark 
+    localStorage.setItem('mode','dark')
+
   }
   document.querySelector('#query').classList.toggle('dark-mode-input')
   document.body.classList.toggle('dark-mode');
 })
+
+// changing the mode on load only if stored value of mode is dark... otherwise it's light by default
+let stored_mode_value=localStorage.getItem('mode')
+console.log(stored_mode_value);
+if(stored_mode_value=='dark'){
+  document.querySelector('#query').classList.add('dark-mode-input')
+  document.body.classList.add('dark-mode');
+}
