@@ -131,4 +131,5 @@ console.log(stored_mode_value);
 if(stored_mode_value=='dark'){
   document.querySelector('#query').classList.add('dark-mode-input')
   document.body.classList.add('dark-mode');
+  toggleBtn.children[0].setAttribute('src', './images/brightness.png')
 }
