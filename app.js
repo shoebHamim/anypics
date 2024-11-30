@@ -9,12 +9,12 @@ const curatedPhotos = async (showPhoto) => {
     }
   })
   const data = await res.json()
+  console.log(data);
   next_page = data.next_page;
   for (photo of data.photos) {
     showPhoto(photo.src)
   }
   downloadFeature()
-
 }
 const searchPhotos = async (query) => {
   const res = await fetch(`https://api.pexels.com/v1/search?query=${query}`,
@@ -30,11 +30,10 @@ const searchPhotos = async (query) => {
   for (photo of data.photos) {
     showPhoto(photo.src)
   }
-  downloadFeature() 
+  downloadFeature()
 }
 
 const showPhoto = (src) => {
-
   const imageDiv = `<div class="single-image">
     <img src=${src.large} alt="">
     <a href=${src.original}>
@@ -44,9 +43,7 @@ const showPhoto = (src) => {
     </a>
 </div>`
 
-
   galleryDiv.innerHTML += imageDiv;
-
 
 }
 
@@ -75,12 +72,7 @@ const morePics = async () => {
   loadingMorePics = false
 }
 
-
-
 function downloadFeature() {
-  if (screen.width < 500) {
-    return
-  }
   const singleImgs = document.querySelectorAll('.single-image')
   singleImgs.forEach(singleImg => {
     singleImg.addEventListener('mouseover', () => {
@@ -96,15 +88,14 @@ function downloadFeature() {
 
 
 }
-curatedPhotos(showPhoto)
 //  endless scrolling 
 window.onscroll = function () {
-  if (!loadingMorePics && (window.innerHeight + window.pageYOffset+50) >= document.body.offsetHeight) {
+  if (!loadingMorePics && (window.innerHeight + window.pageYOffset + 50) >= document.body.offsetHeight) {
     morePics()
     setTimeout(() => {
     }, 2000);
   }
-
+  
 }
 //  switching mode
 const toggleBtn = document.querySelector('.toggle-mode')
@@ -113,23 +104,25 @@ toggleBtn.addEventListener('click', () => {
   if (document.body.classList.value == 'dark-mode') {
     toggleBtn.children[0].setAttribute('src', './images/moon.png')
     // previous state was dark.. as mode is toggled, storing mode value as light 
-    localStorage.setItem('mode','light')
+    localStorage.setItem('mode', 'light')
     
   } else {
     toggleBtn.children[0].setAttribute('src', './images/brightness.png')
     // previous state was light.. as mode is toggled, storing mode value as dark 
-    localStorage.setItem('mode','dark')
-
+    localStorage.setItem('mode', 'dark')
+    
   }
   document.querySelector('#query').classList.toggle('dark-mode-input')
   document.body.classList.toggle('dark-mode');
 })
 
 // changing the mode on load only if stored value of mode is dark... otherwise it's light by default
-let stored_mode_value=localStorage.getItem('mode')
-console.log(stored_mode_value);
-if(stored_mode_value=='dark'){
+let stored_mode_value = localStorage.getItem('mode')
+if (stored_mode_value == 'dark') {
   document.querySelector('#query').classList.add('dark-mode-input')
   document.body.classList.add('dark-mode');
   toggleBtn.children[0].setAttribute('src', './images/brightness.png')
 }
+
+// showing picture
+curatedPhotos(showPhoto)
